@@ -155,6 +155,15 @@ fun parseTokens(expression: String,
 }
 
 
+fun getVariableNamesFromTokens(tokens: List<Token>): List<String> {
+    val names: MutableSet<String> = mutableSetOf();
+    for (token: Token in tokens) {
+        if (token.getType() == TokenType.VARIABLE) names.add((token as VariableToken).getName());
+    }
+    return names.sorted().toList();
+}
+
+
 
 fun applyOperation(operationToken: Token, nodesStack: Stack<Node>) {
     if (operationToken.getType() == TokenType.UNARY_POST_OPERATION) {

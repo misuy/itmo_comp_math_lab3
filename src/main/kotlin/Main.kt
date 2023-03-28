@@ -3,16 +3,19 @@
 import entities.Function
 import entities.Segment
 import entities.Variables
+import methods.*
 import ui.ChartPanel
 import util.*
 import java.awt.Dimension
 import javax.swing.JFrame
 
 fun main(args: Array<String>) {
-    val expression: String = "sin(x^2+y^2)-e^(x*y)";
+    val expression: String = "cos(x)";
     val tokens: List<Token> = parseTokens(expression, constants, openingBrackets, closingBrackets, unaryPreOperations, unaryPostOperations, binaryOperations);
     val variableNames: List<String> = getVariableNamesFromTokens(tokens);
     val function: Function = Function(buildCompTree(tokens), variableNames);
+
+    println(simpsonMethod.integrate(function, Segment(-2.0, 2.0), 0.01).value);
 
     val frame: JFrame = JFrame("chart");
     val chartPanel: ChartPanel = ChartPanel();
